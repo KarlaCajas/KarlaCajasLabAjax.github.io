@@ -8,6 +8,7 @@ const currentPageSpan = document.getElementById('current-page');
 const spinner = document.getElementById('spinner');
 const resetButton = document.getElementById('reset-button');
 const scrollToTopButton = document.getElementById('scroll-to-top');
+const randomButton = document.getElementById('random-button');
 
 let currentPage = 1;
 let totalPages = 0;
@@ -23,7 +24,12 @@ searchButton.addEventListener('click', () => {
     const searchQuery = searchInput.value;
     if (searchQuery) {
         currentPage = 1;
-        loadPokemonByName(searchQuery);
+        const isNumeric = /^\d+$/.test(searchQuery);
+        if (isNumeric) {
+            loadPokemonByNumber(searchQuery);
+        } else {
+            loadPokemonByName(searchQuery);
+        }
     } else {
         currentPage = 1;
         loadPokemon(currentPage);
@@ -79,7 +85,12 @@ function loadPokemon(page) {
     const offset = (page - 1) * 20;
     let url = `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${offset}`;
     if (searchQuery) {
-        url = `https://pokeapi.co/api/v2/pokemon/${searchQuery.toLowerCase()}`;
+        const isNumeric = /^\d+$/.test(searchQuery);
+        if (isNumeric) {
+            url = `https://pokeapi.co/api/v2/pokemon/${searchQuery}`;
+        } else {
+            url = `https://pokeapi.co/api/v2/pokemon/${searchQuery.toLowerCase()}`;
+        }
     }
     if (currentTypeFilter) {
         url = `https://pokeapi.co/api/v2/type/${currentTypeFilter}`;
@@ -92,7 +103,7 @@ function loadPokemon(page) {
             if (currentTypeFilter) {
                 displayPokemonByType(data);
             } else {
-                if (searchQuery) {
+                if (searchQuery && !isNumeric) {
                     displaySinglePokemon(data);
                 } else {
                     displayPokemonList(data);
@@ -106,6 +117,17 @@ function loadPokemon(page) {
 function loadPokemonByName(name) {
     showSpinner();
     fetch(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`)
+        .then(response => response.json())
+        .then(data => {
+            displaySinglePokemon(data);
+        })
+        .catch(error => console.error(error))
+        .finally(() => hideSpinner());
+}
+
+function loadPokemonByNumber(number) {
+    showSpinner();
+    fetch(`https://pokeapi.co/api/v2/pokemon/${number}`)
         .then(response => response.json())
         .then(data => {
             displaySinglePokemon(data);
@@ -136,8 +158,11 @@ function displaySinglePokemon(data) {
     pokemonItem.innerHTML = `
         <h2>${data.name}</h2>
         <img src="${data.sprites.front_default}" alt="${data.name}">
-        <p>Altura: ${data.height}</p>
-        <p>Peso: ${data.weight}</p>
+        <p>Height: ${data.height}</p>
+        <p>Weight: ${data.weight}</p>
+        <p>Attack: ${data.stats.find(stat => stat.stat.name === 'attack').base_stat}</p>
+        <p>Defense: ${data.stats.find(stat => stat.stat.name === 'defense').base_stat}</p>
+        <!-- Add more specifications here as needed -->
     `;
     pokemonList.appendChild(pokemonItem);
     totalPages = 1;
@@ -155,8 +180,12 @@ function displayPokemonByType(data) {
                 pokemonItem.innerHTML = `
                     <h2>${pokemonData.name}</h2>
                     <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
-                    <p>Altura: ${pokemonData.height}</p>
-                    <p>Peso: ${pokemonData.weight}</p>
+                    <p>Height
+: ${pokemonData.height}</p>
+                    <p>Weight: ${pokemonData.weight}</p>
+                    <p>Attack: ${pokemonData.stats.find(stat => stat.stat.name === 'attack').base_stat}</p>
+                    <p>Defense: ${pokemonData.stats.find(stat => stat.stat.name === 'defense').base_stat}</p>
+                    <!-- Add more specifications here as needed -->
                 `;
                 pokemonList.appendChild(pokemonItem);
             });
@@ -186,3 +215,18 @@ function addScrollToTopButtonListener() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
+
+function loadRandomPokemon() {
+    showSpinner();
+    const randomPokemonId = Math.floor(Math.random() * 898) + 1; // 898 es el número total de Pokémon hasta la fecha
+    fetch(`https://pokeapi.co/api/v2/pokemon/${randomPokemonId}`)
+        .then(response => response.json())
+        .then(data => {
+            displaySinglePokemon(data);
+        })
+        .catch(error => console.error(error))
+        .finally(() => hideSpinner());
+}
+
+// Escuchar el clic en el botón de búsqueda aleatoria
+randomButton.addEventListener('click', loadRandomPokemon);

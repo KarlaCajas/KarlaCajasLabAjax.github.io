@@ -11,17 +11,18 @@
 <body>
     <div id="logo-container">
         <img src="img/logo.png" alt="Logo de Pokémon" id="pokemon-logo">
-        <h1>Pokemon</h1>
     </div>
 
-    <input type="text" id="search" placeholder="Buscar pokemon">
-    <button id="search-button">Buscar</button>
-    
-    <select id="type-filter">
-        <option value="">Todos los tipos</option>
-    </select>
-
-    <button id="reset-button">Resetear</button>
+    <div id="controls-container">
+        <input type="text" id="search" placeholder="Numero o Nombre Pokemon">
+        <button id="search-button">Buscar</button>
+        <button id="random-button">Aleatorio</button> 
+        <select id="type-filter">
+            <option value="">Todos los tipos</option>
+        </select>
+        <button id="reset-button">Resetear</button>
+        
+    </div>
 
     <div id="pokemon-list"></div>
     
@@ -32,7 +33,6 @@
     </div>
     
     <div id="spinner" class="spinner"></div>
-
 
     <button id="scroll-to-top" class="scroll-to-top">⬆</button>
 

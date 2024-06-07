@@ -1,36 +1,61 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #222;
-    color: white;
+    font-family: Arial, sans-serif;
+    background-image: url('img/fondo.jpg'); /* Asegúrate de que la imagen esté en la carpeta 'img' */
+    background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
+    background-position: center; /* Centra la imagen de fondo */
+    background-attachment: fixed; /* La imagen de fondo permanecerá fija mientras se desplaza la página */
 }
 
 #logo-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
+    text-align: center;
+    margin-top: 20px;
 }
 
 #pokemon-logo {
-    max-width: 50px;
-    margin-right: 1rem;
+    width: 450px;
+    height: auto;
 }
 
-#search, #search-button, #type-filter, #reset-button {
-    margin: 0.5rem;
+#controls-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
 }
 
-#search-button, #reset-button, #prev-page, #next-page {
-    background-color: #3498db;
-    color: white;
+input[type="text"],
+button,
+select {
+    margin: 10px;
+    padding: 10px;
+    font-size: 1em;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    border-radius: 5px;
+}
+
+#search-button,
+#reset-button,
+#prev-page,
+#next-page,
+#random-button { /* Estilos para todos los botones */
     cursor: pointer;
+    background-color: #ffcb05; /* Color de fondo para los botones */
+    color: #000000; /* Cambio del color del texto a blanco */
+}
+
+#search-button:hover,
+#reset-button:hover,
+#prev-page:hover,
+#next-page:hover,
+#random-button:hover { /* Cambio de color al pasar el cursor sobre los botones */
+    background-color: #ffea99; /* Color de fondo al pasar el cursor */
+}
+
+#search {
+    width: 200px;
 }
 
 #pokemon-list {
@@ -40,56 +65,55 @@ body {
 }
 
 .pokemon-item {
-    background-color: #706c6c;
-    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para los elementos de Pokémon */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
     text-align: center;
-    border-radius: 4px;
-    margin: 0.5rem;
-    width: 200px;
-}
-
-.pokemon-item h2 {
-    margin-top: 0;
-}
-
-.pokemon-item img {
-    max-width: 100px;
+    width: 150px;
 }
 
 #pagination {
-    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
 }
 
-#pagination button {
-    margin: 0 0.5rem;
+#current-page {
+    margin: 0 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff; /* Color blanco para el número de la página actual */
 }
 
 .spinner {
     display: none;
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
+    border-top: 4px solid #fbff2b;
     border-radius: 50%;
     width: 30px;
     height: 30px;
     animation: spin 2s linear infinite;
 }
 
-.scroll-to-top {
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+.scroll-to-top {
+    display: none; /* Oculta el botón por defecto */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffcb05;
+    border: none;
+    border-radius: 50%;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #2a75bb;
 }
