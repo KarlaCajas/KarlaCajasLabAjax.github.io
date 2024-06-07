@@ -139,13 +139,22 @@ function loadPokemonByNumber(number) {
 function displayPokemonList(data) {
     pokemonList.innerHTML = '';
     data.results.forEach(pokemon => {
-        const pokemonItem = document.createElement('div');
-        pokemonItem.classList.add('pokemon-item');
-        pokemonItem.innerHTML = `
-            <h2>${pokemon.name}</h2>
-            <img src="" alt="${pokemon.name}">
-        `;
-        pokemonList.appendChild(pokemonItem);
+        fetch(pokemon.url)
+            .then(response => response.json())
+            .then(pokemonData => {
+                const pokemonItem = document.createElement('div');
+                pokemonItem.classList.add('pokemon-item');
+                pokemonItem.innerHTML = `
+                    <h2>${pokemonData.name}</h2>
+                    <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+                    <p>Height: ${pokemonData.height}</p>
+                    <p>Weight: ${pokemonData.weight}</p>
+                    <p>Attack: ${pokemonData.stats.find(stat => stat.stat.name === 'attack').base_stat}</p>
+                    <p>Defense: ${pokemonData.stats.find(stat => stat.stat.name === 'defense').base_stat}</p>
+                    <!-- Add more specifications here as needed -->
+                `;
+                pokemonList.appendChild(pokemonItem);
+            });
     });
     totalPages = Math.ceil(data.count / 20);
     currentPageSpan.textContent = currentPage;
@@ -227,6 +236,7 @@ function loadRandomPokemon() {
         .catch(error => console.error(error))
         .finally(() => hideSpinner());
 }
+
 
 // Escuchar el clic en el botón de búsqueda aleatoria
 randomButton.addEventListener('click', loadRandomPokemon);

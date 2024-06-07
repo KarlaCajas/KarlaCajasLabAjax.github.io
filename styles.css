@@ -2,10 +2,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('img/fondo.jpg'); /* Asegúrate de que la imagen esté en la carpeta 'img' */
-    background-size: cover; /* Esto asegura que la imagen cubra toda la pantalla */
-    background-position: center; /* Centra la imagen de fondo */
-    background-attachment: fixed; /* La imagen de fondo permanecerá fija mientras se desplaza la página */
+    background-image: url('img/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 #logo-container {
@@ -40,18 +40,18 @@ select {
 #reset-button,
 #prev-page,
 #next-page,
-#random-button { /* Estilos para todos los botones */
+#random-button {
     cursor: pointer;
-    background-color: #ffcb05; /* Color de fondo para los botones */
-    color: #000000; /* Cambio del color del texto a blanco */
+    background-color: #ffcb05;
+    color: #000000;
 }
 
 #search-button:hover,
 #reset-button:hover,
 #prev-page:hover,
 #next-page:hover,
-#random-button:hover { /* Cambio de color al pasar el cursor sobre los botones */
-    background-color: #ffea99; /* Color de fondo al pasar el cursor */
+#random-button:hover {
+    background-color: #ffea99;
 }
 
 #search {
@@ -65,7 +65,7 @@ select {
 }
 
 .pokemon-item {
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para los elementos de Pokémon */
+    background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid #ddd;
     border-radius: 5px;
     margin: 10px;
@@ -85,7 +85,7 @@ select {
     margin: 0 10px;
     font-size: 1.2em;
     font-weight: bold;
-    color: #fff; /* Color blanco para el número de la página actual */
+    color: #fff;
 }
 
 .spinner {
@@ -103,9 +103,8 @@ select {
     100% { transform: rotate(360deg); }
 }
 
-
 .scroll-to-top {
-    display: none; /* Oculta el botón por defecto */
+    display: none;
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -115,5 +114,5 @@ select {
     padding: 10px 15px;
     font-size: 20px;
     cursor: pointer;
-    color: #2a75bb;
+    color: #000000;
 }
